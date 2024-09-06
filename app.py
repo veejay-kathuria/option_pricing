@@ -22,12 +22,11 @@ def binomial_tree_complete(S, K, T, r, sigma, steps, option_type="call"):
     option_tree = np.zeros((steps + 1, steps + 1))
     
     for i in range(steps + 1):
-        for j in range(steps + 1-i):
-            stock_tree[j, steps+1-i] = S * (u^(steps-i-j)) * (d^j)
+        j=0
+        while j<=i:
+            stock_tree[j, i] = S * (u**(i-j)) * (d**j)
+            j = j+1
   
-        
-    print (stock_tree)
-    
     for i in range(steps + 1):
         if option_type == "call":
             option_tree[i, steps] = max(0, stock_tree[i, steps] - K)
