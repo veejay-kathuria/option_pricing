@@ -1,46 +1,57 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    padding: 20px;
+.tree {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    padding-top: 20px;
+    align-items: flex-start;
 }
-
-.container {
-    max-width: 600px;
-    margin: auto;
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-    text-align: center;
-}
-
-form {
+.tree-level {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    margin: 0 10px;
 }
-
-label {
-    margin: 10px 0 5px;
-}
-
-input, button {
+.node {
     padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
+    margin: 5px;
     border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    position: relative;
+    text-align: center;
 }
-
-button {
-    background-color: #28a745;
-    color: white;
-    border: none;
+.node:before, .node:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    border-top: 1px solid #ccc;
+    width: 20px;
+}
+.node:before {
+    left: -20px;
+}
+.node:after {
+    right: -20px;
+}
+.tree-level:first-child .node:before, .tree-level:first-child .node:after {
+    display: none;
+}
+.tree-level .node:first-child:before, .tree-level .node:last-child:after {
+    display: none;
+}
+/* Autocomplete dropdown */
+.autocomplete-suggestions {
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    position: absolute;
+    background-color: white;
+    z-index: 1000;
+}
+.autocomplete-suggestion {
+    padding: 8px;
     cursor: pointer;
 }
-
-button:hover {
-    background-color: #218838;
+.autocomplete-suggestion:hover {
+    background-color: #f8f9fa;
 }
