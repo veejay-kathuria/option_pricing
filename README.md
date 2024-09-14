@@ -1,5 +1,4 @@
 Option Pricing Calculator
-
 This project provides a pricing calculator for financial derivatives (options) on selected stocks using two well-known methods: Black-Scholes and the Binomial Tree method. It allows users to select a stock and an option, calculate the option price using both methods, and compare the derived values with the current market price.
 
 Features
