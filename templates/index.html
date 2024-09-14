@@ -63,15 +63,13 @@
                 .autocomplete-suggestion:hover {
                     background-color: #f8f9fa;
                 }
-
             </style>
         </head>
         {% if error%}
         <body>
             <h1>Error: {{ '%s' %error }}</h1>
         </body>
-        {% endif%}
-        {% if !error%}
+        {% else %}
         <body class="container">
             <div class="container mt-5">
                 <h1 class="text-center mb-4">Derivative Pricing Calculator</h1>
