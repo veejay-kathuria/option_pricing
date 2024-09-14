@@ -16,7 +16,7 @@ Number of steps in the Binomial Tree method.
 Installation
 1. Clone the Repository
 bash
-Copy code
+
 git clone https://github.com/your-username/option-pricing-calculator.git
 cd option-pricing-calculator
 2. Set Up a Virtual Environment
