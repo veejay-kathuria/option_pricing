@@ -72,12 +72,13 @@ def index():
     
     if request.method == 'POST':
         try:
-            ticker = request.form['ticker'].upper()
+            ticker = request.form['stock_name'].upper()
             expiry = request.form['expiry']
             strike_price = float(request.form['strike_price'])
             steps = int(request.form['steps'])
             option_type = request.form['option_type'].lower()
-            
+            print ([ticker,expiry,strike_price,steps,option_type])
+
             stock = yf.Ticker(ticker)
             data = stock.history(period="1d")
 
@@ -85,12 +86,14 @@ def index():
             # Get the call and put options data
             if option_type == 'call':
                 calls = options_chain.calls
-                option_price = calls[calls['strike'] == strike_price]
+                option_price = calls[calls['strike'] == strike_price].iloc[-1].lastPrice
+                print (option_price)
             else:
                 puts = options_chain.puts
-                option_price = puts[puts['strike'] == strike_price]  
+                option_price = puts[puts['strike'] == strike_price].iloc[-1].lastPrice
+                print (option_price)  
 
-            S = data['Close'][0]
+            S = data['Close'].iloc[0]
             r = 0.05  # risk-free rate
             
             expiry_date = pd.to_datetime(expiry).date()
@@ -99,15 +102,16 @@ def index():
             T = (expiry_date - current_date).days / 365.0
             sigma = stock.history(period="1y")['Close'].pct_change().std() * np.sqrt(252)
             
-            bs_price, bt_price, stock_tree, option_tree, p, u, d = black_scholes(S, strike_price, T, r, sigma, option_type=option_type) ,binomial_tree_complete(S, strike_price, T, r, sigma, steps, option_type=option_type)
+            bs_price = black_scholes(S, strike_price, T, r, sigma, option_type=option_type)
+            bt_price, stock_tree, option_tree, p, u, d = binomial_tree_complete(S, strike_price, T, r, sigma, steps, option_type=option_type)
             
 
         except Exception as e:
-            print ("ERROR in index")
-            return render_template_string('<h1>Error: {{ error }}</h1>', error=str(e))
+            print ("ERROR in index: %s" %e)
+            return render_template('index.html', error=str(e))
 
 
-        return render_template('index.html', bs_price = bs_price, bt_price=bt_price, stock_tree=stock_tree, option_tree=option_tree, ticker=request.form.get('ticker'), S=S, strike_price=strike_price, T=T, r=r, sigma=sigma, steps=steps, u=u, d=d, p=p)
+        return render_template('index.html', bs_price = bs_price, bt_price=bt_price, stock_tree=stock_tree, option_tree=option_tree, ticker=request.form.get('ticker'), S=S, strike_price=strike_price, T=T, r=r, sigma=sigma, steps=steps, u=u, d=d, p=p, option_price = option_price)
 
     return render_template('index.html')
 
