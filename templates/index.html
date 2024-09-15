@@ -151,10 +151,9 @@
                             </div>
                             {% endfor %}
                         </div>
-                        {% if (bt_price>option_price) %}
+                        {% if (bt_price<option_price) %}
                         <span>Bionomial Tree Price:<strong>{{'%.2f' % bt_price}}<small style="font:Red">{{' Overvalued'}}</small></strong></span>
-                        {% endif %}
-                        {% if (bt_price <= option_price) %}
+                        {% else %}
                         <span>Bionomial Tree Price:<strong>{{'%.2f' % bt_price}}<small style="font:green">{{' UnderValued'}}</small></strong></span>
                         {% endif %}
                         </div>
@@ -165,10 +164,9 @@
                     <div class="card-body">
                         <h5 class="card-title">Black Scholes Option Pricing Results</h5>               
                         
-                        {% if (bs_price>option_price) %}
+                        {% if (bs_price<option_price) %}
                         <h4>Black Schooles Price:<strong>{{'%.2f' % bs_price}}<small style="font:Red">{{' Overvalued'}}</small></strong></h4>
-                        {% endif %}
-                        {% if (bs_price <= option_price) %}
+                        {% else %}
                         <span>Black Schooles Price:<strong>{{'%.2f ' % bs_price}}<small style="font:green">{{' UnderValued'}}</small></strong></span>
                         {% endif %}
                     </div>
