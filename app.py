@@ -111,7 +111,7 @@ def index():
             return render_template('index.html', error=str(e))
 
 
-        return render_template('index.html', bs_price = bs_price, bt_price=bt_price, stock_tree=stock_tree, option_tree=option_tree, ticker=request.form.get('ticker'), S=S, strike_price=strike_price, T=T, r=r, sigma=sigma, steps=steps, u=u, d=d, p=p, option_price = option_price)
+        return render_template('index.html', bs_price = bs_price, bt_price=bt_price, stock_tree=stock_tree, option_tree=option_tree, ticker=request.form.get('stock_name'), S=S, strike_price=strike_price, T=T, r=r, sigma=sigma, steps=steps, u=u, d=d, p=p, option_price = option_price)
 
     return render_template('index.html')
 
